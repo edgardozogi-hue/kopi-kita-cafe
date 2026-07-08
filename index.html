@@ -351,14 +351,14 @@
     <a href="#contact" class="btn-primary !py-2.5 !px-6 !text-sm !font-medium">Kunjungi</a>
    </div>
    <!-- Mobile Hamburger -->
-    <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 !z-[60]" aria-label="Toggle menu" style="position:relative;">
+     <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu" style="position:fixed; top:16px; right:24px; z-index:70;">
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
    </button>
   </div>
   <!-- Mobile Menu Panel -->
-  <div id="mobileMenuWrapper" class="fixed top-0 right-0 h-full z-40 md:hidden shadow-2xl" style="width: 384px; max-width: 100vw; overflow: hidden; pointer-events: none;">
+   <div id="mobileMenuWrapper" class="fixed top-0 right-0 h-full !z-[55] md:hidden shadow-2xl" style="width: 384px; max-width: 100vw; overflow: hidden; pointer-events: none;">
    <div id="mobileMenu" class="mobile-menu mobile-menu-closed h-full bg-brand-900 p-8 pt-24 flex flex-col gap-6 shadow-2xl">
     <a href="#story" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Tentang</a>
     <a href="#menu" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Menu</a>
