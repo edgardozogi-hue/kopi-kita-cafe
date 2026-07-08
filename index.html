@@ -351,7 +351,7 @@
     <a href="#contact" class="btn-primary !py-2.5 !px-6 !text-sm !font-medium">Kunjungi</a>
    </div>
    <!-- Mobile Hamburger -->
-   <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 z-50" aria-label="Toggle menu">
+    <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 !z-[60]" aria-label="Toggle menu" style="position:relative;">
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
     <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
@@ -931,12 +931,16 @@
     document.getElementById('mobileMenuWrapper').classList.toggle('open');
     hamburger.classList.toggle('open');
    }
-  hamburger.addEventListener('click', toggleMenu);
-  document.querySelectorAll('.mobile-link').forEach((link) => {
-   link.addEventListener('click', () => {
-    if (menuOpen) toggleMenu();
+   hamburger.addEventListener('click', toggleMenu);
+   document.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => {
+     if (menuOpen) toggleMenu();
+    });
    });
-  });
+   // Close mobile menu when user scrolls
+   window.addEventListener('scroll', function() {
+    if (menuOpen) toggleMenu();
+   }, { passive: true });
   // ================================
   // HERO PARTICLES
   // ================================
