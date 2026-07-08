@@ -4,6 +4,28 @@ Semua perubahan signifikan akan dicatat di file ini.
 
 Format berdasarkan [Keep a Changelog](https://keepachangelog.com/) dan [Semantic Versioning](https://semver.org/).
 
+
+## [1.1.0] — 2026-07-08
+
+### Fixed
+- 🐛 **Mobile menu text cut-off** — .mobile-menu width diubah dari width: 384px menjadi width: 100%; max-width: 384px
+- 🍔 **Hamburger → X animation** — CSS transform (	ranslateY + rotate) + .open toggle di JS
+- 🔊 **Music toggle icons** — Dari music-note SVGs menjadi speaker-wave (on) / speaker-X (off) yang lebih intuitif
+- 🔄 **Inverted music logic** — play → icon speaker-wave show, pause → speaker-X show
+- 📱 **Auto-close menu on scroll** — Scroll listener otomatis nutup menu saat user scroll
+- ⬆️ **Hamburger z-index stacking** — position:fixed; top:16px; right:24px; z-index:70 supaya selalu di atas
+- 🗂️ **Mobile menu wrapper z-index** — !z-[55] agar menu overlay di atas konten
+- 🌀 **Backdrop-filter removed from navbar** — Karena ackdrop-filter bikin new containing block untuk position:fixed, bikin hamburger gak bisa diklik setelah scroll
+- 👻 **Ghost shadow eliminated** — shadow-2xl dipindah dari #mobileMenuWrapper ke #mobileMenu dalam, hilangin ghost shadow di 384-768px
+
+### Added
+- 🌐 **Vercel deployment** — Live di https://kopi-kita-cafe.vercel.app
+- 🚀 **GitHub repo** — github.com/edgardozogi-hue/kopi-kita-cafe (branch: master)
+- 📄 **vercel.json** — Clean URLs + cache headers untuk g-music.mp3 (1 year, immutable)
+- 🎵 **bg-music.mp3** — Background music file (included in deployment)
+
+### Changed
+- 📝 **Dokumentasi diperbarui** — CHANGELOG, KNOWLEDGE-BASE, README fixes
 ---
 
 ## [1.0.0] — 2026-07-08
@@ -58,3 +80,4 @@ Format berdasarkan [Keep a Changelog](https://keepachangelog.com/) dan [Semantic
 - Color palette dari MCP suggest_palette
 - Typography scale dari MCP generate_type_scale
 - Layout recommendation dari MCP suggest_layout
+
