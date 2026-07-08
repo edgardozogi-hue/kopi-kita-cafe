@@ -1,0 +1,1048 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="description" content="Kopi Kita &ndash; Specialty Coffee &amp; Artisan Pastry. Nikmati secangkir kopi spesial dan pastry artisan di setiap kunjungan. />
+ <title>Kopi Kita &ndash; Specialty Coffee &amp; Artisan Pastry</title>
+ <!-- Google Fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+ <!-- Tailwind CSS CDN -->
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+  tailwind.config = {
+   theme: {
+    extend: {
+     colors: {
+      brand: {
+       50: '#f7f2ed',
+       100: '#f0e4db',
+       200: '#e0c9b8',
+       300: '#d1ae94',
+       400: '#c29470',
+       500: '#b3794d',
+       600: '#8f613d',
+       700: '#6b482e',
+       800: '#47301f',
+       900: '#24180f',
+      },
+      cream: '#fbf8f5',
+      gold: '#c2bc70',
+     },
+     fontFamily: {
+      serif: ['Playfair Display', 'Georgia', 'serif'],
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+     },
+    },
+   },
+  };
+ </script>
+ <style>
+  /* === RESET & BASE === */
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+   font-family: 'Inter', system-ui, sans-serif;
+   background-color: #fbf8f5;
+   color: #24180f;
+   overflow-x: hidden;
+  }
+  /* === NAVBAR TRANSITION === */
+  .navbar {
+   transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  }
+  .navbar.scrolled {
+   background-color: rgba(255, 255, 255, 0.92);
+   backdrop-filter: blur(12px);
+   -webkit-backdrop-filter: blur(12px);
+   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+  }
+  /* Hamburger lines - putih di hero (bg gelap) */
+  .hamburger-line {
+   background-color: #47301f;
+  }
+  /* Hamburger lines - cokelat tua saat navbar di-scroll (bg cream) */
+  .navbar.scrolled .hamburger-line {
+   background-color: #47301f;
+  }
+   /* Background subtle untuk hamburger button */
+   #hamburger {
+    background: rgba(71,48,31,0.06);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+   }
+   #hamburger:hover {
+    background: rgba(71,48,31,0.1);
+   }
+   #hamburger:active {
+    background: rgba(71,48,31,0.15);
+   }
+
+  /* === SCROLL REVEAL ANIMATIONS === */
+  .reveal {
+   opacity: 0;
+   transform: translateY(48px);
+   transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal-left {
+   opacity: 0;
+   transform: translateX(-60px);
+   transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal-right {
+   opacity: 0;
+   transform: translateX(60px);
+   transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.active,
+  .reveal-left.active,
+  .reveal-right.active {
+   opacity: 1;
+   transform: translate(0, 0);
+  }
+  /* === HERO FADE-IN (staggered) === */
+  .hero-fade {
+   opacity: 0;
+   transform: translateY(30px);
+   transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .hero-fade.active {
+   opacity: 1;
+   transform: translateY(0);
+  }
+  .hero-fade.delay-1 { transition-delay: 0.2s; }
+  .hero-fade.delay-2 { transition-delay: 0.4s; }
+  .hero-fade.delay-3 { transition-delay: 0.6s; }
+  .hero-fade.delay-4 { transition-delay: 0.8s; }
+  .hero-fade.delay-5 { transition-delay: 1.0s; }
+  .hero-fade.delay-6 { transition-delay: 1.2s; }
+  /* === HERO PARTICLES === */
+  .particle {
+   position: absolute;
+   border-radius: 50%;
+   background: rgba(194, 188, 112, 0.18);
+   pointer-events: none;
+   animation: float-particle linear infinite;
+  }
+  @keyframes float-particle {
+   0%  { transform: translateY(0) scale(1); opacity: 0; }
+   10% { opacity: 1; }
+   90% { opacity: 1; }
+   100% { transform: translateY(-120vh) scale(0.5); opacity: 0; }
+  }
+  
+  /* === MOBILE RESPONSIVE IMPROVEMENTS === */
+  @media (max-width: 640px) {
+   section:not([id="hero"]) { padding: 4rem 1rem !important; }
+   .hero-headline { font-size: 2.8rem !important; line-height: 1.1 !important; }
+   .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+   .gallery-tall { grid-row: span 1 !important; }
+   .navbar { padding: 0.75rem 1rem !important; }
+   .menu-card .h-56 { height: 180px !important; }
+  }
+  @media (max-width: 380px) {
+   .hero-headline { font-size: 2.2rem !important; line-height: 1.1 !important; }
+   .btn-primary, .btn-outline { padding: 12px 24px !important; font-size: 0.85rem !important; }
+  }
+  /* === SCROLL INDICATOR (bouncing dot) === */
+  .scroll-indicator { animation: bounce-down 2.4s infinite; }
+  @keyframes bounce-down {
+   0%, 100% { transform: translateY(0); opacity: 0.6; }
+   50%   { transform: translateY(12px); opacity: 1; }
+  }
+  /* === DIVIDER (gold-brown) === */
+  .divider {
+   display: flex;
+   align-items: center;
+   gap: 0;
+   margin: 0;
+   height: 0;
+  }
+  .divider::before,
+  .divider::after {
+   content: '';
+   flex: 1;
+   height: 1px;
+  }
+  .divider::before { display: none; }
+  .divider::after { display: none; }
+  .divider-diamond { display: none; }
+  /* === MENU CARDS === */
+  .menu-card {
+   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+  }
+  .menu-card:hover {
+   transform: translateY(-8px);
+   box-shadow: 0 20px 48px -12px rgba(36, 24, 15, 0.18);
+  }
+  .menu-card img {
+   transition: transform 0.5s ease;
+  }
+  /* === MUSIC TOGGLE (mobile safe) === */
+  #music-toggle {
+   display: flex !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+   pointer-events: auto !important;
+  }
+  @media (max-width: 640px) {
+   #music-toggle {
+    width: 44px !important;
+    height: 44px !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    right: max(16px, env(safe-area-inset-right, 16px)) !important;
+   }
+  }
+  .menu-card:hover img {
+   transform: scale(1.08);
+  }
+  /* === TAB BUTTONS === */
+  .tab-btn {
+   transition: all 0.3s ease;
+   cursor: pointer;
+  }
+  .tab-btn.active {
+   background-color: #8f613d;
+   color: white;
+   border-color: #8f613d;
+  }
+  /* === BUTTON STYLES === */
+  .btn-primary {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   padding: 14px 36px;
+   background: linear-gradient(135deg, #8f613d, #6b482e);
+   color: white;
+   border-radius: 9999px;
+   font-weight: 600;
+   font-size: 0.95rem;
+   transition: all 0.4s ease;
+   border: none;
+   cursor: pointer;
+  }
+  .btn-primary:hover {
+   background: linear-gradient(135deg, #b3794d, #8f613d);
+   transform: translateY(-2px);
+   box-shadow: 0 8px 28px -6px rgba(143, 97, 61, 0.4);
+  }
+  .btn-outline {
+   display: inline-block;
+   padding: 14px 36px;
+   background: transparent;
+   color: white;
+   border: 2px solid rgba(255,255,255,0.5);
+   border-radius: 9999px;
+   font-weight: 600;
+   font-size: 0.95rem;
+   transition: all 0.4s ease;
+   cursor: pointer;
+  }
+  .btn-outline:hover {
+   border-color: #c2bc70;
+   color: #c2bc70;
+   transform: translateY(-2px);
+  }
+  /* === TESTIMONIAL CARDS === */
+  .testimonial-card {
+   transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .testimonial-card:hover {
+   border-color: #c2bc70;
+   transform: translateY(-6px);
+   box-shadow: 0 20px 48px -12px rgba(36, 24, 15, 0.12);
+  }
+  /* === GALLERY OVERLAY === */
+  .gallery-item {
+   overflow: hidden;
+   position: relative;
+  }
+  .gallery-item {
+   overflow: hidden;
+   position: relative;
+  }
+  .gallery-item img {
+   transition: filter 0.4s ease, transform 0.4s ease;
+  }
+  .gallery-item:hover img {
+   filter: brightness(0.85);
+   transform: scale(1.03);
+  }
+  .gallery-item .shadow-md {
+   transition: box-shadow 0.4s ease;
+  }
+  .gallery-item:hover .shadow-md {
+   box-shadow: 0 10px 40px rgba(36, 24, 15, 0.2);
+  }
+  /* === SOCIAL BUTTONS === */
+  .social-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 40px; height: 40px;
+   border-radius: 50%;
+   border: 1px solid rgba(194, 188, 112, 0.3);
+   color: #c2bc70;
+   transition: all 0.3s ease;
+  }
+  .social-btn:hover {
+   background: #c2bc70;
+   color: #24180f;
+   border-color: #c2bc70;
+   transform: translateY(-3px);
+  }
+  /* === MOBILE MENU === */
+  /* Wrapper clips sliding menu; menu slides via translateX, clipped by overflow:hidden */
+   #mobileMenuWrapper .mobile-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+     width: 100%;
+     max-width: 384px;
+     height: 100%;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+   }
+  #mobileMenuWrapper .mobile-menu-closed {
+   transform: translateX(100%);
+   opacity: 0;
+   pointer-events: none;
+  }
+  #mobileMenuWrapper.open .mobile-menu,
+  #mobileMenuWrapper .mobile-menu.open {
+   transform: translateX(0);
+   opacity: 1;
+   pointer-events: auto;
+  }
+   /* Hamburger to X animation */
+   #hamburger.open .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+   }
+   #hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+   }
+   #hamburger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+   }
+
+  /* === RESPONSIVE HELPER === */
+  @media (max-width: 767px) {
+   .hero-headline { font-size: 3.2rem !important; line-height: 1.15 !important; }
+  }
+  </style>
+</head>
+<body>
+ <!-- ============================== -->
+ <!-- NAVBAR             -->
+ <!-- ============================== -->
+ <nav id="navbar" class="navbar fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-4" style="background-color: #fbf8f5;">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+   <!-- Logo -->
+   <a href="#hero" class="font-serif text-2xl md:text-3xl font-bold text-brand-900 tracking-wide flex items-center gap-2">
+    <svg class="w-6 h-6 text-gold inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 10l2-7h14l2 7M5 10v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+    <span>Kopi Kita</span>
+   </a>
+   <!-- Desktop Links -->
+   <div class="hidden md:flex items-center gap-9">
+    <a href="#story" class="nav-link text-brand-800/85 hover:text-gold transition-colors duration-300 text-sm font-medium tracking-wide">Tentang</a>
+    <a href="#menu" class="nav-link text-brand-800/85 hover:text-gold transition-colors duration-300 text-sm font-medium tracking-wide">Menu</a>
+    <a href="#gallery" class="nav-link text-brand-800/85 hover:text-gold transition-colors duration-300 text-sm font-medium tracking-wide">Galeri</a>
+    <a href="#testimonials" class="nav-link text-brand-800/85 hover:text-gold transition-colors duration-300 text-sm font-medium tracking-wide">Kata Mereka</a>
+    <a href="#contact" class="btn-primary !py-2.5 !px-6 !text-sm !font-medium">Kunjungi</a>
+   </div>
+   <!-- Mobile Hamburger -->
+   <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 z-50" aria-label="Toggle menu">
+    <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
+    <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
+    <span class="hamburger-line block w-6 h-0.5 rounded transition-all duration-300"></span>
+   </button>
+  </div>
+  <!-- Mobile Menu Panel -->
+  <div id="mobileMenuWrapper" class="fixed top-0 right-0 h-full z-40 md:hidden shadow-2xl" style="width: 384px; max-width: 100vw; overflow: hidden; pointer-events: none;">
+   <div id="mobileMenu" class="mobile-menu mobile-menu-closed h-full bg-brand-900 p-8 pt-24 flex flex-col gap-6 shadow-2xl">
+    <a href="#story" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Tentang</a>
+    <a href="#menu" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Menu</a>
+    <a href="#gallery" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Galeri</a>
+    <a href="#testimonials" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Kata Mereka</a>
+    <a href="#contact" class="mobile-link text-cream text-lg font-medium hover:text-gold transition-colors">Kunjungi</a>
+   </div>
+  </div>
+ </nav>
+ <!-- ============================== -->
+ <!-- HERO SECTION          -->
+ <!-- ============================== -->
+ <section id="hero" class="relative min-h-screen flex items-center justify-center pt-16 md:pt-20">
+  <!-- Background gradient + overlay image -->
+  <div class="absolute inset-0 bg-gradient-to-b from-brand-900 via-brand-800 to-brand-700"></div>
+  <div
+   class="absolute inset-0 bg-cover bg-center opacity-35"
+   style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&q=80');"
+  ></div>
+  <!-- Particles -->
+  <div id="particles-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto pt-2">
+   <!-- Badge -->
+   <div class="hero-fade active inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold/40 text-gold text-xs md:text-sm font-medium tracking-widest uppercase mb-6">
+    <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
+    Specialty Coffee • Since 2024
+   </div>
+   <!-- Headline -->
+   <h1 class="hero-fade active hero-headline font-serif font-bold text-5xl md:text-7xl lg:text-8xl leading-[1.15] md:leading-[1.1] tracking-tight">
+    <span class="text-cream">Kopi </span><span class="text-gold">Kita</span>
+   </h1>
+   <!-- Subtext -->
+   <div class="hero-fade active delay-2 mt-0">
+     <div class="divider max-w-xs mx-auto">
+      <div class="divider-diamond"></div>
+     </div>
+    </div>
+    <p class="hero-fade active delay-3 mt-8 text-cream/70 text-lg md:text-xl max-w-xl mx-auto leading-relaxed font-light">
+    Setiap cangkir bercerita tentang perjalanan rasa dari biji pilihan hingga seni penyeduhan yang sempurna.
+   </p>
+   <!-- CTA Buttons -->
+   <div class="hero-fade active delay-4 mt-10 flex flex-wrap max-sm:flex-col max-sm:gap-4 justify-center gap-4">
+    <a href="#menu" class="btn-primary max-sm:w-full max-sm:min-h-[52px] max-sm:text-base">Lihat Menu</a>
+    <a href="#story" class="btn-outline max-sm:w-full max-sm:min-h-[52px] max-sm:text-base">Cerita Kami</a>
+   </div>
+   <!-- Scroll Indicator -->
+   <div class="hero-fade active delay-7 mt-16 flex justify-center">
+    <div class="scroll-indicator flex flex-col items-center gap-2 cursor-pointer" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
+     <span class="text-cream/40 text-xs tracking-widest uppercase font-medium">Scroll</span>
+     <svg class="w-5 h-5 text-gold/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </div>
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- STORY SECTION         -->
+ <!-- ============================== -->
+ <section id="story" class="pt-10 md:pt-14 px-6 md:px-12 bg-cream" style="padding-bottom: clamp(32px, 5vw, 56px);">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+   <!-- Left: Text Content -->
+   <div class="reveal-left text-center md:text-center">
+    <span class="text-brand-500 text-sm font-semibold tracking-[0.2em] uppercase">Tentang Kami</span>
+    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mt-3 leading-tight">
+     Rasa dan Cerita
+    </h2>
+    <div class="divider max-w-xs mx-auto">
+     <div class="divider-diamond"></div>
+    </div>
+    <p class="text-brand-800/75 text-base md:text-lg leading-relaxed text-justify" style="margin-top: clamp(12px, 1.5vw, 20px);">
+     Berawal dari kecintaan pada kopi Nusantara, <strong class="text-brand-700">Kopi Kita</strong> hadir sebagai ruang
+     di mana tradisi dan modernitas bertemu. Setiap biji kami pilih langsung dari petani lokal di empat daerah
+     penghasil kopi terbaik Indonesia dipanggang dengan presisi, diseduh dengan hati.
+    </p>
+    <p class="text-brand-800/75 text-base md:text-lg leading-relaxed text-justify" style="margin-top: clamp(12px, 1.5vw, 20px);">
+     Bukan sekedar kafe. Ini adalah perayaan rasa, aroma, dan cerita yang lahir dari secangkir kopi.
+     Temani dengan pastry artisan buatan tangan setiap gigitan adalah pengalaman.
+    </p>
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-6" style="margin-top: clamp(24px, 4vw, 48px);">
+     <div>
+      <span class="block font-serif text-3xl md:text-4xl font-bold text-gold">20+</span>
+      <span class="text-brand-700/70 text-sm font-medium">Varian Kopi</span>
+     </div>
+     <div>
+      <span class="block font-serif text-3xl md:text-4xl font-bold text-gold">4</span>
+      <span class="text-brand-700/70 text-sm font-medium">Daerah Asal</span>
+     </div>
+     <div>
+      <span class="block font-serif text-3xl md:text-4xl font-bold text-gold">500+</span>
+      <span class="text-brand-700/70 text-sm font-medium">Pelanggan</span>
+     </div>
+    </div>
+   </div>
+   <!-- Right: Photo Grid -->
+   <div class="reveal-right grid grid-cols-2 gap-4 md:gap-5">
+    <div class="space-y-4 md:space-y-5">
+     <div class="overflow-hidden rounded-2xl shadow-lg rotate-2">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Penyeduhan kopi" class="w-full h-48 md:h-52 object-cover" loading="lazy" />
+     </div>
+     <div class="overflow-hidden rounded-2xl shadow-lg -rotate-1">
+      <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80" alt="Pastry artisan" class="w-full h-40 md:h-48 object-cover" loading="lazy" />
+     </div>
+    </div>
+    <div class="space-y-4 md:space-y-5 mt-6 md:mt-10">
+     <div class="overflow-hidden rounded-2xl shadow-lg -rotate-2">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Latte art" class="w-full h-40 md:h-48 object-cover" loading="lazy" />
+     </div>
+     <div class="overflow-hidden rounded-2xl shadow-lg rotate-1">
+      <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=600&q=80" alt="Suasana kafe" class="w-full h-48 md:h-52 object-cover" loading="lazy" />
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- MENU SECTION          -->
+ <!-- ============================== -->
+ <section id="menu" class="py-20 md:py-28 px-6 md:px-12 bg-white">
+  <div class="max-w-7xl mx-auto">
+   <!-- Header -->
+   <div class="text-center reveal">
+    <span class="text-brand-500 text-sm font-semibold tracking-[0.2em] uppercase">Pilihan Rasa</span>
+    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mt-3">Menu Kami</h2>
+    <div class="divider max-w-xs mx-auto">
+     <div class="divider-diamond"></div>
+    </div>
+   </div>
+   <!-- Tab Buttons -->
+   <div class="flex justify-center gap-3 mt-10 reveal">
+    <button class="tab-btn active px-6 py-2.5 rounded-full border-2 border-brand-600 text-brand-600 font-medium text-sm" data-tab="coffee">Kopi</button>
+    <button class="tab-btn px-6 py-2.5 rounded-full border-2 border-brand-200 text-brand-600/70 font-medium text-sm" data-tab="pastry">Pastry</button>
+    <button class="tab-btn px-6 py-2.5 rounded-full border-2 border-brand-200 text-brand-600/70 font-medium text-sm" data-tab="signature">Signature</button>
+   </div>
+   <!-- Menu Cards Container -->
+   <div id="menuContainer" class="grid md:grid-cols-3 gap-8 mt-12">
+    <!-- Initially populated by JavaScript -->
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- GALLERY SECTION        -->
+ <!-- ============================== -->
+ <section id="gallery" class="py-20 md:py-28 px-6 md:px-12 bg-cream">
+  <div class="max-w-7xl mx-auto">
+   <!-- Header -->
+   <div class="text-center reveal">
+    <span class="text-brand-500 text-sm font-semibold tracking-[0.2em] uppercase">Momen</span>
+    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mt-3">Galeri</h2>
+    <div class="divider max-w-xs mx-auto">
+     <div class="divider-diamond"></div>
+    </div>
+   </div>
+   <!-- Masonry Grid -->
+   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+    <!-- Row 1 -->
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-left col-span-1 row-span-2">
+     <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&q=80" alt="Coffee latte art" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-right col-span-1">
+     <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Coffee beans" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal scale-105 col-span-1">
+     <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&q=80" alt="Croissant" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-left col-span-1">
+     <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Coffee shop interior" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <!-- Row 2 -->
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-right col-span-1 row-span-2">
+     <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80" alt="Barista at work" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-left col-span-1">
+     <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=600&q=80" alt="Coffee brewing" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal-right col-span-1">
+     <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Penyeduhan kopi" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <!-- Mobile only (visible ≤757px) -->
+    <div class="gallery-item rounded-2xl overflow-hidden shadow-md reveal scale-105 col-span-1 md:hidden">
+     <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Suasana cafe" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- TESTIMONIALS SECTION      -->
+ <!-- ============================== -->
+ <section id="testimonials" class="py-20 md:py-28 px-6 md:px-12 bg-white">
+  <div class="max-w-7xl mx-auto">
+   <!-- Header -->
+   <div class="text-center reveal">
+    <span class="text-brand-500 text-sm font-semibold tracking-[0.2em] uppercase">Kata Mereka</span>
+    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mt-3">Apa Kata Pelanggan</h2>
+    <div class="divider max-w-xs mx-auto">
+     <div class="divider-diamond"></div>
+    </div>
+   </div>
+   <!-- Cards -->
+   <div class="grid md:grid-cols-3 gap-8 mt-12">
+    <!-- Card 1 -->
+    <div class="testimonial-card bg-cream rounded-2xl p-8 border border-brand-200 reveal-left">
+     <!-- Stars -->
+     <div class="flex gap-1 mb-5">
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+     </div>
+     <p class="text-brand-800/80 italic text-base leading-relaxed mb-6">
+      "Suasananya hangat, kopinya luar biasa. Saya jatuh cinta dengan manual brew mereka. Tempat favorit baru!"
+     </p>
+     <div class="flex items-center gap-4">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Sarah Wijaya" class="w-11 h-11 rounded-full object-cover" loading="lazy" />
+      <div>
+       <p class="font-semibold text-brand-900 text-sm">Sarah Wijaya</p>
+       <p class="text-brand-500 text-xs">Creative Director</p>
+      </div>
+     </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="testimonial-card bg-cream rounded-2xl p-8 border border-brand-200 reveal">
+     <!-- Stars -->
+     <div class="flex gap-1 mb-5">
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+     </div>
+     <p class="text-brand-800/80 italic text-base leading-relaxed mb-6">
+      "Pastrynya fresh, kopinya premium. Croissant almond sama flat white adalah kombinasi terbaik!"
+     </p>
+     <div class="flex items-center gap-4">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Dimas Prasetyo" class="w-11 h-11 rounded-full object-cover" loading="lazy" />
+      <div>
+       <p class="font-semibold text-brand-900 text-sm">Dimas Prasetyo</p>
+       <p class="text-brand-500 text-xs">Software Engineer</p>
+      </div>
+     </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="testimonial-card bg-cream rounded-2xl p-8 border border-brand-200 reveal-right">
+     <!-- Stars -->
+     <div class="flex gap-1 mb-5">
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+     </div>
+     <p class="text-brand-800/80 italic text-base leading-relaxed mb-6">
+      "Interiornya aesthetic banget, cocok buat work from cafe. WiFi kencang, kopi enak  truly 10/10."
+     </p>
+     <div class="flex items-center gap-4">
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Maya Putri" class="w-11 h-11 rounded-full object-cover" loading="lazy" />
+      <div>
+       <p class="font-semibold text-brand-900 text-sm">Maya Putri</p>
+       <p class="text-brand-500 text-xs">UI/UX Designer</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- CONTACT / VISIT SECTION    -->
+ <!-- ============================== -->
+ <section id="contact" class="py-20 md:py-28 px-6 md:px-12 bg-cream">
+  <div class="max-w-7xl mx-auto">
+   <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <!-- Left: Info -->
+    <div class="reveal-left">
+     <span class="text-brand-500 text-sm font-semibold tracking-[0.2em] uppercase">Kunjungi</span>
+     <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mt-3 leading-tight">
+      Yuk mampir!
+     </h2>
+     <div class="divider">
+      <div class="divider-diamond"></div>
+     </div>
+     <p class="text-brand-800/75 text-base md:text-lg leading-relaxed mt-2">
+      Kami tunggu kedatanganmu untuk menikmati secangkir kebahagiaan.
+     </p>
+     <!-- Info Items -->
+     <div class="space-y-6 mt-8">
+      <!-- Location -->
+      <div class="flex items-start gap-4">
+       <div class="flex-shrink-0 w-11 h-11 rounded-full bg-brand-100 flex items-center justify-center">
+        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+       </div>
+       <div>
+        <p class="font-semibold text-brand-800 text-base">Lokasi</p>
+        <p class="text-brand-700/70 text-sm mt-0.5">Jl. Kopi Nikmat No. 42, Bandung, Jawa Barat 40123</p>
+       </div>
+      </div>
+      <!-- Hours -->
+      <div class="flex items-start gap-4">
+       <div class="flex-shrink-0 w-11 h-11 rounded-full bg-brand-100 flex items-center justify-center">
+        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+       </div>
+       <div>
+        <p class="font-semibold text-brand-800 text-base">Jam Buka</p>
+        <p class="text-brand-700/70 text-sm mt-0.5">Senin &ndash; Jumat: 07:00 s/d 21:00</p>
+        <p class="text-brand-700/70 text-sm">Sabtu &ndash; Minggu: 08:00 s/d 22:00</p>
+       </div>
+      </div>
+      <!-- Contact -->
+      <div class="flex items-start gap-4">
+       <div class="flex-shrink-0 w-11 h-11 rounded-full bg-brand-100 flex items-center justify-center">
+        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+       </div>
+       <div>
+        <p class="font-semibold text-brand-800 text-base">Kontak</p>
+        <p class="text-brand-700/70 text-sm mt-0.5">+62 812 3456 7890</p>
+        <p class="text-brand-700/70 text-sm">hello@kopikita.co.id</p>
+       </div>
+      </div>
+     </div>
+     <!-- CTA -->
+     <a href="#" class="btn-primary mt-10 inline-flex items-center gap-3">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Lihat di Google Maps
+     </a>
+    </div>
+    <!-- Right: Photo -->
+    <div class="reveal-right">
+     <div class="rounded-3xl overflow-hidden shadow-2xl">
+      <img
+       src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80"
+       alt="Interior Kopi Kita Cafe"
+       class="w-full h-72 md:h-96 object-cover"
+       loading="lazy"
+      />
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <!-- ============================== -->
+ <!-- FOOTER             -->
+ <!-- ============================== -->
+ <footer class="bg-brand-900 text-cream/70 py-16 px-6 md:px-12">
+  <div class="max-w-7xl mx-auto">
+   <div class="grid md:grid-cols-4 gap-10">
+    <!-- Column 1: Logo + Desc -->
+    <div class="md:col-span-1">
+     <a href="#hero" class="font-serif text-2xl font-bold text-cream flex items-center gap-2 mb-4">
+      <svg class="w-6 h-6 text-gold inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 10l2-7h14l2 7M5 10v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+      Kopi Kita
+     </a>
+     <p class="text-cream/60 text-sm leading-relaxed">
+      Specialty Coffee & Artisan Pastry. Setiap cangkir bercerita tentang perjalanan rasa dan cinta pada kopi Nusantara.
+     </p>
+     <!-- Social -->
+     <div class="flex gap-3 mt-6">
+      <a href="#" class="social-btn" aria-label="Instagram">
+       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Facebook">
+       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="TikTok">
+       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+     </div>
+    </div>
+    <!-- Column 2 + 3: Menu + Kategori (2 cols on mobile) -->
+    <div class="grid grid-cols-2 gap-6 md:col-span-2">
+     <div>
+      <h4 class="font-serif text-lg font-semibold text-cream mb-5">Menu</h4>
+      <ul class="space-y-3">
+       <li><a href="#hero" class="text-cream/60 hover:text-gold transition-colors text-sm">Beranda</a></li>
+       <li><a href="#story" class="text-cream/60 hover:text-gold transition-colors text-sm">Tentang</a></li>
+       <li><a href="#menu" class="text-cream/60 hover:text-gold transition-colors text-sm">Menu</a></li>
+       <li><a href="#gallery" class="text-cream/60 hover:text-gold transition-colors text-sm">Galeri</a></li>
+       <li><a href="#testimonials" class="text-cream/60 hover:text-gold transition-colors text-sm">Ulasan</a></li>
+       <li><a href="#contact" class="text-cream/60 hover:text-gold transition-colors text-sm">Kontak</a></li>
+      </ul>
+     </div>
+     <div>
+      <h4 class="font-serif text-lg font-semibold text-cream mb-5">Kategori</h4>
+      <ul class="space-y-3">
+       <li><a href="#" class="text-cream/60 hover:text-gold transition-colors text-sm">Kopi Spesial</a></li>
+       <li><a href="#" class="text-cream/60 hover:text-gold transition-colors text-sm">Artisan Pastry</a></li>
+       <li><a href="#" class="text-cream/60 hover:text-gold transition-colors text-sm">Signature Drinks</a></li>
+       <li><a href="#" class="text-cream/60 hover:text-gold transition-colors text-sm">Coffee Beans</a></li>
+       <li><a href="#" class="text-cream/60 hover:text-gold transition-colors text-sm">Merchandise</a></li>
+      </ul>
+     </div>
+    </div>
+    <!-- Column 4: Jam Buka -->
+    <div>
+     <h4 class="font-serif text-lg font-semibold text-cream mb-5">Jam Buka</h4>
+     <ul class="space-y-3 text-sm">
+      <li class="flex justify-between">
+       <span class="text-cream/60">Senin &ndash; Jumat</span>
+       <span class="text-cream/80">07:00 s/d 21:00</span>
+      </li>
+      <li class="flex justify-between">
+       <span class="text-cream/60">Sabtu &ndash; Minggu</span>
+       <span class="text-cream/80">08:00 s/d 22:00</span>
+      </li>
+     </ul>
+     <div class="mt-6 pt-6 border-t border-brand-700/50">
+      <p class="text-cream/50 text-xs leading-relaxed">
+        Specialty Coffee<br />
+       Since 2024
+      </p>
+     </div>
+    </div>
+   </div>
+   <!-- Copyright -->
+   <div class="mt-12 pt-8 border-t border-brand-700/40 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-cream/50">
+    <p>&copy; 2024 Kopi Kita. All rights reserved.</p>
+    <p class="flex items-center gap-1">Made with <svg class="w-4 h-4 text-gold inline" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/></svg> Edgard</p>
+   </div>
+  </div>
+ </footer>
+ <!-- ============================== -->
+ <!-- JAVASCRIPT           -->
+ <!-- ============================== -->
+ <script>
+  // ================================
+  // MENU DATA
+  // ================================
+  const menuData = {
+   coffee: [
+    {
+     img: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80',
+     title: 'Espresso',
+     price: 'Rp 25K',
+     desc: 'Ekstrak kopi murni dengan crema sempurna, dibuat dari biji pilihan Arabika Toraja.',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80',
+     title: 'Cappuccino',
+     price: 'Rp 35K',
+     desc: 'Espresso dengan steamed milk foam tebal, ditaburi sedikit coklat bubuk premium.',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600&q=80',
+     title: 'V60 Pour Over',
+     price: 'Rp 40K',
+     desc: 'Manual brew V60 dari biji single origin Gayo  fruity, clean, dan kompleks.',
+    },
+   ],
+   pastry: [
+    {
+     img: 'https://images.unsplash.com/photo-1755200385515-7ff1b617ae84?w=600&q=80',
+     title: 'Croissant Almond',
+     price: 'Rp 30K',
+     desc: 'Croissant buatan tangan dengan isian almond paste dan taburan almond slice crunchy.',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80',
+     title: 'Pain au Chocolat',
+     price: 'Rp 28K',
+     desc: 'Pastry lapis dengan dark chocolate belgia  lumer di setiap gigitan.',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1767065887793-f68f736ea9d6?w=600&q=80',
+     title: 'Banana Bread',
+     price: 'Rp 25K',
+     desc: 'Banana bread moist dengan walnut dan caramel drizzle  gluten free friendly.',
+    },
+   ],
+   signature: [
+    {
+     img: 'https://images.unsplash.com/photo-1462917882517-e150004895fa?w=600&q=80',
+     title: 'Kopi Kita Special',
+     price: 'Rp 45K',
+     desc: 'Signature blend dengan sentuhan gula aren asli dan cream oat  wajib coba!',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600&q=80',
+     title: 'Es Kopi Susu Aren',
+     price: 'Rp 35K',
+     desc: 'Kopi susu aren kekinian dengan gula aren cair dari Ciamis dan fresh milk.',
+    },
+    {
+     img: 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=600&q=80',
+     title: 'Cold Brew Lychee',
+     price: 'Rp 40K',
+     desc: 'Cold brew 16 jam infused lychee dan daun mint  segar dan unik.',
+    },
+   ],
+  };
+  // ================================
+  // RENDER MENU
+  // ================================
+  const menuContainer = document.getElementById('menuContainer');
+  let currentTab = 'coffee';
+  function renderMenu(tab) {
+   const items = menuData[tab];
+   if (!items) return;
+   menuContainer.innerHTML = items
+    .map(
+     (item, i) => `
+    <div class="menu-card bg-cream rounded-2xl overflow-hidden shadow-md reveal" style="transition-delay: ${i * 0.12}s">
+     <div class="overflow-hidden h-56">
+      <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover" loading="lazy" />
+     </div>
+     <div class="p-6">
+      <div class="mb-2">
+       <h3 class="font-serif text-xl font-bold text-brand-900">${item.title}</h3>
+       <span class="text-gold font-bold text-lg mt-1 block">${item.price}</span>
+      </div>
+      <p class="text-brand-700/70 text-sm leading-relaxed">${item.desc}</p>
+     </div>
+    </div>
+   `
+    )
+    .join('');
+   // Re-trigger reveal animations
+   setTimeout(() => {
+    document.querySelectorAll('#menuContainer .reveal').forEach((el) => {
+     el.classList.add('active');
+    });
+   }, 50);
+  }
+  // ================================
+  // TAB SWITCHING
+  // ================================
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+   btn.addEventListener('click', function () {
+    const tab = this.dataset.tab;
+    if (tab === currentTab) return;
+    document.querySelectorAll('.tab-btn').forEach((b) => {
+     b.classList.remove('active');
+     b.classList.add('border-brand-200', 'text-brand-600/70');
+     b.classList.remove('border-brand-600', 'text-brand-600');
+    });
+    this.classList.add('active');
+    this.classList.remove('border-brand-200', 'text-brand-600/70');
+    this.classList.add('border-brand-600', 'text-brand-600');
+    currentTab = tab;
+    renderMenu(tab);
+   });
+  });
+  // Initial render
+  renderMenu('coffee');
+  // ================================
+  // NAVBAR SCROLL EFFECT
+  // ================================
+  const navbar = document.getElementById('navbar');
+  const logoText = navbar.querySelector('.font-serif span:last-child');
+  const desktopLinks = navbar.querySelectorAll('.hidden.md\\:flex a:not(.btn-primary)');
+  function handleNavScroll() {
+   if (window.scrollY > 80) {
+    navbar.classList.add('scrolled');
+    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+   } else {
+    navbar.classList.remove('scrolled');
+    navbar.style.backgroundColor = '#fbf8f5';
+   }
+  }
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+  handleNavScroll();
+  // ================================
+  // MOBILE MENU
+  // ================================
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  let menuOpen = false;
+   function toggleMenu() {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('open');
+    mobileMenu.classList.toggle('mobile-menu-closed');
+    document.getElementById('mobileMenuWrapper').classList.toggle('open');
+    hamburger.classList.toggle('open');
+   }
+  hamburger.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.mobile-link').forEach((link) => {
+   link.addEventListener('click', () => {
+    if (menuOpen) toggleMenu();
+   });
+  });
+  // ================================
+  // HERO PARTICLES
+  // ================================
+  (function createParticles() {
+   const container = document.getElementById('particles-container');
+   const count = 20;
+   for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 4 + Math.random() * 12;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-5%';
+    p.style.animationDuration = 12 + Math.random() * 20 + 's';
+    p.style.animationDelay = Math.random() * 12 + 's';
+    container.appendChild(p);
+   }
+  })();
+  // ================================
+  // SCROLL REVEAL (Intersection Observer)
+  // ================================
+  (function initReveal() {
+   const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px',
+   };
+   const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+     if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+     }
+    });
+   }, observerOptions);
+   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
+    observer.observe(el);
+   });
+  })();
+ </script>
+<!-- Background Music -->
+ <audio id="bg-music" loop preload="metadata">
+  <source src="bg-music.mp3" type="audio/mpeg">
+ </audio>
+
+ <!-- Music Toggle Button -->
+ <button id="music-toggle" class="fixed z-[9999] w-12 h-12 md:w-12 md:h-10 rounded-full bg-brand-800/80 backdrop-blur-sm text-cream shadow-lg flex items-center justify-center hover:bg-brand-700 transition-all duration-300" aria-label="Toggle music" style="bottom: max(20px, env(safe-area-inset-bottom, 20px)); right: max(20px, env(safe-area-inset-right, 20px)); display: flex; visibility: visible; opacity: 1;">
+   <svg id="music-icon-on" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+   <svg id="music-icon-off" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+ </button>
+
+ <script>
+  // ================================
+  // BACKGROUND MUSIC
+  // ================================
+  (function() {
+   const audio = document.getElementById("bg-music");
+   const toggle = document.getElementById("music-toggle");
+   const iconOn = document.getElementById("music-icon-on");
+   const iconOff = document.getElementById("music-icon-off");
+   let isPlaying = false;
+
+   // Check localStorage
+   const savedState = localStorage.getItem("kopikita-music");
+   if (savedState === "playing") {
+    // Will start on first interaction
+    isPlaying = true;
+   }
+
+   function toggleMusic() {
+     if (isPlaying) {
+      audio.pause();
+      iconOn.classList.add("hidden");
+      iconOff.classList.remove("hidden");
+      localStorage.setItem("kopikita-music", "paused");
+     } else {
+      audio.play().then(function() {
+       iconOn.classList.remove("hidden");
+       iconOff.classList.add("hidden");
+       localStorage.setItem("kopikita-music", "playing");
+      }).catch(function() {
+       // Browser blocked autoplay - will try on next click
+      });
+     }
+     isPlaying = !isPlaying;
+    }
+
+   toggle.addEventListener("click", toggleMusic);
+
+   // Auto-start on first user interaction if was playing before
+   if (savedState === "playing") {
+    function firstInteraction() {
+     audio.play().then(function() {
+      iconOn.classList.add("hidden");
+      iconOff.classList.remove("hidden");
+      isPlaying = true;
+     }).catch(function() {});
+     document.removeEventListener("click", firstInteraction);
+     document.removeEventListener("touchstart", firstInteraction);
+     document.removeEventListener("scroll", firstInteraction);
+    }
+    document.addEventListener("click", firstInteraction);
+    document.addEventListener("touchstart", firstInteraction);
+    document.addEventListener("scroll", firstInteraction);
+   }
+  })();
+ </script>
+</body>
+</html>

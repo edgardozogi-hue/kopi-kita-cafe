@@ -1,0 +1,76 @@
+﻿/* ===========================================
+   🎨 DESIGN TOKENS V2 — RØST Specialty Coffee Bar
+   Versi: 2.0.0
+   Type: Modern Dark Coffee Bar
+   =========================================== */
+
+:root {
+  /* === DARK BACKGROUNDS === */
+  --dark-base:      #0D0D0D;
+  --dark-elevated:  #1A1A2E;
+  --dark-surface:   #252540;
+
+  /* === TEAL PRIMARY === */
+  --teal-50:  #E6F7F7;
+  --teal-100: #CCF0F0;
+  --teal-200: #99E0E0;
+  --teal-300: #66D1D1;
+  --teal-400: #33C1C1;
+  --teal-500: #00B2B2;
+  --teal-600: #008E8E;
+  --teal-700: #006B6B;
+  --teal-800: #004747;
+  --teal-900: #002424;
+
+  /* === COPPER ACCENT === */
+  --copper-400: #F59E0B;
+  --copper-500: #D97706;
+  --copper-600: #B45309;
+
+  /* === LIGHT === */
+  --white-pure: #FFFFFF;
+  --white-soft: #F5F0EB;
+
+  /* === SEMANTIC === */
+  --bg-page:          var(--dark-base);
+  --bg-elevated:      var(--dark-elevated);
+  --bg-surface:       var(--dark-surface);
+  --bg-light:         var(--white-soft);
+
+  --text-primary:     var(--white-pure);
+  --text-secondary:   #A0A0B0;
+  --text-muted:       #6B6B80;
+  --text-on-light:    var(--dark-base);
+
+  --color-primary:        var(--teal-500);
+  --color-primary-hover:  var(--teal-400);
+  --color-accent:         var(--copper-500);
+  --color-accent-hover:   var(--copper-400);
+
+  --border-subtle:    rgba(255, 255, 255, 0.06);
+  --border-hover:     rgba(0, 178, 178, 0.3);
+  --glow-teal:        0 0 20px rgba(0, 178, 178, 0.15);
+  --glow-copper:      0 0 20px rgba(217, 119, 6, 0.15);
+
+  /* === FONTS === */
+  --font-display: 'Syne', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* === TYPE SCALE (Augmented Fourth 1.414) === */
+  --fs-h1: clamp(5.65rem, 0.10vw + 5.28rem, 6.72rem);
+  --fs-h2: clamp(4.00rem, 0.07vw + 3.73rem, 4.75rem);
+  --fs-h3: clamp(2.83rem, 0.05vw + 2.64rem, 3.36rem);
+  --fs-h4: clamp(2.00rem, 0.04vw + 1.87rem, 2.38rem);
+  --fs-body: clamp(1.00rem, 0.02vw + 0.93rem, 1.19rem);
+  --fs-small: clamp(0.71rem, 0.01vw + 0.66rem, 0.84rem);
+
+  /* === SPACING === */
+  --space-2:  0.5rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+}

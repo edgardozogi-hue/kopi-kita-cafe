@@ -1,0 +1,1206 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROAST — Specialty Coffee Bar</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            dark: { 
+              base: 'var(--color-bg-base)', 
+              elevated: 'var(--color-bg-elevated)', 
+              surface: 'var(--color-bg-surface)' 
+            },
+            teal: { 
+              400: 'var(--color-teal-400)', 
+              500: 'var(--color-teal-500)', 
+              600: 'var(--color-teal-600)', 
+              700: 'var(--color-teal-700)' 
+            },
+            copper: { 
+              400: 'var(--color-copper-400)', 
+              500: 'var(--color-copper-500)' 
+            },
+            white: 'var(--color-white)',
+            soft: 'var(--color-soft)',
+            secondary: 'var(--color-secondary)',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease-out forwards',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'particle': 'particleFloat 6s infinite ease-in-out',
+            'particle-slow': 'particleFloat 10s infinite ease-in-out',
+            'particle-fast': 'particleFloat 4s infinite ease-in-out',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 5px rgba(0, 178, 178, 0.1)' },
+              '100%': { boxShadow: '0 0 25px rgba(0, 178, 178, 0.4)' },
+            },
+            particleFloat: {
+              '0%, 100%': { transform: 'translateY(0) translateX(0)', opacity: '0.3' },
+              '25%': { transform: 'translateY(-20px) translateX(10px)', opacity: '0.6' },
+              '50%': { transform: 'translateY(-10px) translateX(-5px)', opacity: '0.2' },
+              '75%': { transform: 'translateY(-30px) translateX(15px)', opacity: '0.5' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Custom CSS -->
+  <style>
+    /* Base reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-bg-base);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ==========================================
+       CSS VARIABLES (Theme System)
+       ========================================== */
+    :root {
+      --color-bg-base: #0D0D0D;
+      --color-bg-elevated: #1A1A2E;
+      --color-bg-surface: #252540;
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #A0A0B0;
+      --color-teal-400: #33C1C1;
+      --color-teal-500: #00B2B2;
+      --color-teal-600: #008E8E;
+      --color-teal-700: #006B6B;
+      --color-copper-400: #F59E0B;
+      --color-copper-500: #D97706;
+      --color-white: #FFFFFF;
+      --color-soft: #F5F0EB;
+      --color-secondary: #A0A0B0;
+      --border-subtle: rgba(255,255,255,0.05);
+      --border-medium: rgba(255,255,255,0.1);
+      --border-strong: rgba(255,255,255,0.2);
+      --nav-bg: rgba(13,13,13,0.95);
+      --nav-bg-solid: #0D0D0D;
+    }
+
+    html.light-mode {
+      --color-bg-base: #F8F6F3;
+      --color-bg-elevated: #FFFFFF;
+      --color-bg-surface: #EDE8E1;
+      --color-text-primary: #1A1A2E;
+      --color-text-secondary: #4B5563;
+      --color-teal-400: #33C1C1;
+      --color-teal-500: #00B2B2;
+      --color-teal-600: #008E8E;
+      --color-teal-700: #006B6B;
+      --color-copper-400: #F59E0B;
+      --color-copper-500: #D97706;
+      --color-white: #1A1A2E;
+      --color-soft: #0D0D0D;
+      --color-secondary: #4B5563;
+      --border-subtle: rgba(0,0,0,0.06);
+      --border-medium: rgba(0,0,0,0.1);
+      --border-strong: rgba(0,0,0,0.18);
+      --nav-bg: rgba(248,246,243,0.95);
+      --nav-bg-solid: #F8F6F3;
+    }
+
+    html.light-mode .card-glow {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    html.light-mode .card-glow:hover {
+      box-shadow: 0 8px 30px rgba(0, 178, 178, 0.15);
+    }
+    html.light-mode .from-dark-base\/40 {
+      --tw-gradient-from: rgba(248,246,243,0.7);
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(248,246,243,0));
+    }
+    html.light-mode .from-dark-base {
+      --tw-gradient-from: #F8F6F3;
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(248,246,243,0));
+    }
+    html.light-mode .via-dark-base\/85 {
+      --tw-gradient-stops: var(--tw-gradient-from), rgba(248,246,243,0.85) var(--tw-gradient-via-position), var(--tw-gradient-to, rgba(248,246,243,0));
+    }
+    html.light-mode .hero-badge {
+      border-color: rgba(0, 178, 178, 0.4);
+    }
+    html.light-mode img {
+      filter: none !important;
+    }
+    html.light-mode .brightness-\[0\.25\] {
+      filter: brightness(0.6) !important;
+    }
+    html.light-mode .animate-glow {
+      animation: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg-base); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 0; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-teal-500); }
+
+    /* Reveal classes (initial hidden state) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.4, 0.25, 1),
+                  transform 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* Particle container */
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Navbar blur backup on some browsers */
+    .nav-blur {
+      backdrop-filter: blur(0);
+    }
+
+    /* Tab content */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Card glow on hover */
+    .card-glow {
+      transition: all 0.4s cubic-bezier(0.25, 0.4, 0.25, 1);
+    }
+    .card-glow:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 178, 178, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 178, 178, 0.12), 0 0 0 1px rgba(0, 178, 178, 0.08);
+    }
+
+    /* Button styles */
+    .btn-flat {
+      border-radius: 0 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-flat:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Divider */
+    .divider-teal {
+      width: 4rem;
+      height: 4px;
+      background-color: var(--color-teal-500);
+      border: none;
+      border-radius: 0;
+    }
+
+    /* Tab button */
+    .tab-btn {
+      border-radius: 0 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    /* Mobile nav */
+    .mobile-link {
+      transition: all 0.3s ease;
+    }
+
+    /* Stats divider */
+    .stat-divider {
+      border-right: 1px solid var(--border-medium);
+    }
+    .stat-divider:last-child {
+      border-right: none;
+    }
+
+    /* Hero badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid rgba(0, 178, 178, 0.3);
+      color: var(--color-teal-500);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    /* Experience list bullets */
+    .exp-bullet {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-teal-500);
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Star */
+    .star-copper {
+      color: var(--color-copper-500);
+    }
+
+    /* Smooth image loading */
+    img {
+      transition: filter 0.5s ease;
+    }
+    img.loaded {
+      filter: none;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-teal-500);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Footer links */
+    .footer-link {
+      color: var(--color-text-secondary);
+      transition: color 0.3s ease;
+    }
+    .footer-link:hover {
+      color: var(--color-teal-500);
+    }
+  
+
+    /* === MOBILE RESPONSIVE IMPROVEMENTS === */
+    @media (max-width: 640px) {
+      section { padding: 4rem 1rem !important; }
+      
+      /* Full width containers - kurangi padding sisi */
+      .max-w-7xl { padding-left: 1rem !important; padding-right: 1rem !important; }
+      
+      /* Navbar */
+      nav .max-w-7xl { padding-left: 1rem !important; padding-right: 1rem !important; }
+      
+      /* Hero heading mobile */
+      .hero-headline-main { font-size: 3.5rem !important; }
+      .hero-headline-accent { font-size: 5rem !important; }
+      
+      /* Tabs mobile - biar gak overflow */
+      .tab-btn { padding: 10px 12px !important; font-size: 0.7rem !important; }
+      
+      /* Section label mobile - lebih kecil letter-spacing */
+      .section-label { font-size: 0.65rem !important; letter-spacing: 0.15em !important; }
+      
+      /* Stats mobile - stack vertikal */
+      .stat-divider {
+        flex: none !important;
+        width: 100% !important;
+        padding: 0 0 1rem 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+        margin-bottom: 1rem !important;
+      }
+      .stat-divider:last-child {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+      }
+      
+      /* Menu cards - kurangi padding */
+      .card-glow { padding: 1rem !important; }
+      
+      /* Experience section */
+      .experience-full { min-height: 60vh !important; }
+      .menu-card { margin-bottom: 0 !important; }
+    }
+    @media (max-width: 380px) {
+      .hero-headline-main { font-size: 2.8rem !important; }
+      .hero-headline-accent { font-size: 4rem !important; }
+      .btn-primary, .btn-outline { padding: 12px 20px !important; font-size: 0.8rem !important; }
+    }
+</style>
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- 1. NAVBAR                                                     -->
+  <!-- ============================================================ -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-dark-base border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="font-display text-2xl font-bold tracking-wider text-white hover:text-teal-500 transition-colors duration-300">
+          ROAST
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-10">
+          <a href="#story" class="font-body text-sm uppercase tracking-widest text-secondary hover:text-white transition-colors duration-300">Story</a>
+          <a href="#menu" class="font-body text-sm uppercase tracking-widest text-secondary hover:text-white transition-colors duration-300">Menu</a>
+          <a href="#experience" class="font-body text-sm uppercase tracking-widest text-secondary hover:text-white transition-colors duration-300">Experience</a>
+          <a href="#visit" class="font-body text-sm uppercase tracking-widest text-secondary hover:text-white transition-colors duration-300">Visit</a>
+          <a href="#reserve" class="btn-flat bg-teal-500 text-black px-6 py-3 text-sm font-semibold hover:bg-teal-400 animate-glow">Reserve</a>
+        </div>
+        <!-- Right Side (Mobile) -->
+        <div class="flex items-center gap-1 md:hidden">
+          <!-- Theme Toggle -->
+          <button id="theme-toggle" class="text-secondary hover:text-teal-500 transition-colors duration-300 p-2" aria-label="Toggle theme">
+            <svg id="sun-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="moon-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          <!-- Hamburger -->
+          <button id="hamburger" class="flex flex-col gap-1.5 p-2 group" aria-label="Toggle menu">
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 group-hover:bg-teal-500"></span>
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 group-hover:bg-teal-500"></span>
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 group-hover:bg-teal-500"></span>
+          </button>
+        </div>      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-dark-elevated border-t border-white/5">
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="#story" class="mobile-link font-body text-sm uppercase tracking-widest text-secondary hover:text-teal-500 py-2">Story</a>
+        <a href="#menu" class="mobile-link font-body text-sm uppercase tracking-widest text-secondary hover:text-teal-500 py-2">Menu</a>
+        <a href="#experience" class="mobile-link font-body text-sm uppercase tracking-widest text-secondary hover:text-teal-500 py-2">Experience</a>
+        <a href="#visit" class="mobile-link font-body text-sm uppercase tracking-widest text-secondary hover:text-teal-500 py-2">Visit</a>
+        <a href="#reserve" class="btn-flat bg-teal-500 text-black px-6 py-3 text-sm font-semibold text-center hover:bg-teal-400">Reserve</a>
+        <!-- Mobile Theme Toggle -->
+        <div class="flex items-center gap-3 pt-4 border-t border-white/5 mt-4">
+          <button id="theme-toggle-mobile" class="text-secondary hover:text-teal-500 transition-colors duration-300 p-2" aria-label="Toggle theme">
+            <svg id="sun-icon-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="moon-icon-mobile" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          <span class="font-body text-xs text-secondary uppercase tracking-wider">Theme</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- 2. HERO                                                       -->
+  <!-- ============================================================ -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-base pt-20 md:pt-0">
+    <!-- Radial Gradient -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,178,178,0.08)_0%,transparent_60%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,178,178,0.05)_0%,transparent_50%)] pointer-events-none"></div>
+
+    <!-- Particles -->
+    <div id="particles-canvas"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      <span class="w-1 h-1 bg-teal-500 rounded-full animate-pulse"></span>
+      <span class="w-1 h-1 bg-teal-500/50 rounded-full"></span>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+      <!-- Badge -->
+      <div class="hero-badge reveal mx-auto mb-8">
+        <span class="w-1.5 h-1.5 bg-teal-500"></span>
+        EST. 2024 Â· SPECIALTY COFFEE BAR
+      </div>
+
+      <!-- Headline -->
+      <h1 class="reveal reveal-delay-1 font-display text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-[0.95] md:leading-[0.9]">
+        <span class="text-white block">DARK</span>
+        <span class="text-teal-500 block -mt-4 md:-mt-8">ROAST</span>
+      </h1>
+
+      <!-- Subtext -->
+      <p class="reveal reveal-delay-2 font-body text-secondary text-lg md:text-xl max-w-2xl mx-auto mt-8 leading-relaxed">
+        Where precision meets passion. Specialty coffee, crafted in the dark.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="reveal reveal-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+        <a href="#menu" class="btn-flat bg-teal-500 text-black px-10 py-4 text-sm font-semibold hover:bg-teal-400 animate-glow w-full sm:w-auto text-center">
+          Explore Menu
+        </a>
+        <a href="#story" class="btn-flat border border-white/20 text-white px-10 py-4 text-sm font-semibold hover:border-teal-500 hover:text-teal-500 w-full sm:w-auto text-center">
+          Our Story
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3. STORY SECTION                                              -->
+  <!-- ============================================================ -->
+  <section id="story" class="py-24 md:py-32 bg-dark-base">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Left Content -->
+        <div>
+          <div class="reveal">
+            <p class="section-label">About</p>
+            <div class="divider-teal mb-8"></div>
+          </div>
+
+          <h2 class="reveal reveal-delay-1 font-heading text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+            CRAFTED IN<br />THE DARK
+          </h2>
+
+          <div class="reveal reveal-delay-2 space-y-5 text-secondary font-body leading-relaxed">
+            <p>
+              ROAST was born from a singular belief — that the perfect cup demands obsession, not approximation. In a dim lit corner of the city, we built a sanctuary where every bean is roasted to its exact moment of peak expression.
+            </p>
+            <p>
+              We source directly from single origin farms across three continents, forging relationships with growers who share our compulsion for quality. Each batch is small, each pour deliberate, each crema a signature.
+            </p>
+          </div>
+
+          <!-- Stats -->
+          <div class="reveal reveal-delay-3 flex flex-wrap mt-10 pt-8 border-t border-white/5">
+            <div class="stat-divider flex-1 min-w-[100px] px-4 first:pl-0">
+              <p class="font-display text-3xl font-bold text-white">15+</p>
+              <p class="font-body text-xs text-secondary uppercase tracking-wider mt-1">Origins</p>
+            </div>
+            <div class="stat-divider flex-1 min-w-[100px] px-4">
+              <p class="font-display text-3xl font-bold text-white">8</p>
+              <p class="font-body text-xs text-secondary uppercase tracking-wider mt-1">Years Exp</p>
+            </div>
+            <div class="stat-divider flex-1 min-w-[100px] px-4 last:pr-0">
+              <p class="font-display text-3xl font-bold text-white">50K+</p>
+              <p class="font-body text-xs text-secondary uppercase tracking-wider mt-1">Cups Served</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Image -->
+        <div class="reveal reveal-delay-3 relative">
+          <div class="border-l-4 border-teal-500 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=700&q=80&auto=format&fit=crop"
+              alt="Barista crafting coffee"
+              class="w-full h-[500px] md:h-[600px] object-cover grayscale contROAST-125 brightness-75"
+              loading="lazy"
+            />
+          </div>
+          <!-- Overlay gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-base/40 to-transparent pointer-events-none"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4. MENU SECTION                                               -->
+  <!-- ============================================================ -->
+  <section id="menu" class="py-24 md:py-32 bg-dark-elevated">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <div class="reveal">
+          <p class="section-label">Signature</p>
+          <div class="divider-teal mx-auto mb-6"></div>
+        </div>
+        <h2 class="reveal reveal-delay-1 font-heading text-4xl md:text-5xl font-bold text-white">
+          THE SELECTION
+        </h2>
+      </div>
+
+      <!-- Tabs -->
+      <div class="reveal reveal-delay-2 flex justify-center gap-0 border-b border-white/10 mb-12">
+        <button class="tab-btn px-8 py-4 text-sm font-semibold text-white bg-teal-500 text-black" data-tab="coffee">
+          Coffee
+        </button>
+        <button class="tab-btn px-8 py-4 text-sm font-semibold text-secondary bg-transparent hover:border-teal-500" data-tab="pastry">
+          Pastry
+        </button>
+        <button class="tab-btn px-8 py-4 text-sm font-semibold text-secondary bg-transparent hover:border-teal-500" data-tab="signature">
+          Signature
+        </button>
+      </div>
+
+      <!-- Tab: Coffee -->
+      <div id="tab-coffee" class="tab-content active">
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+          <!-- Card 1 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop"
+              alt="Ethiopian Pour Over"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Ethiopian Pour Over</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Single origin Yirgacheffe, floral notes with bergamot and honey.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 45K</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&auto=format&fit=crop"
+              alt="Cold Brew"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Nitro Cold Brew</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              24 hour steeped, nitrogen infused. Silky smooth, bold finish.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 42K</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80&auto=format&fit=crop"
+              alt="Flat White"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Signature Flat White</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Double ristretto with microfoam. Velvet texture, deep body.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 38K</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Pastry -->
+      <div id="tab-pastry" class="tab-content">
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+          <!-- Card 1 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80&auto=format&fit=crop"
+              alt="Croissant"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Butter Croissant</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              French style, laminated dough, 72 hour fermentation.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 28K</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80&auto=format&fit=crop"
+              alt="Matcha Cake"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Matcha Basque Cake</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Ceremonial grade matcha, burnt cheesecake texture.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 35K</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&auto=format&fit=crop"
+              alt="Tiramisu"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Espresso Tiramisu</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              House made mascarpone, coffee soaked ladyfingers.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 38K</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Signature -->
+      <div id="tab-signature" class="tab-content">
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+          <!-- Card 1 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80&auto=format&fit=crop"
+              alt="Dark ROAST"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Dark ROAST</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Espresso, activated charcoal, vanilla, oat milk.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 52K</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=600&q=80&auto=format&fit=crop"
+              alt="Smoked Maple Latte"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Smoked Maple Latte</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Wood fired maple syrup, double espresso, cinnamon dust.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 48K</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="card-glow bg-dark-surface border border-white/5 p-6 group">
+            <img
+              src="https://images.unsplash.com/photo-1476699231198-8e4b2c06b571?w=600&q=80&auto=format&fit=crop"
+              alt="Black Velvet"
+              class="w-full h-48 object-cover brightness-75 contROAST-125 mb-6"
+              loading="lazy"
+            />
+            <h3 class="font-heading text-xl text-white mb-2">Black Velvet</h3>
+            <p class="font-body text-sm text-secondary mb-4 leading-relaxed">
+              Cold brew, black sesame cream, cacao nibs.
+            </p>
+            <p class="font-heading text-teal-500 font-semibold text-lg">Rp 55K</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 5. EXPERIENCE SECTION (full-bleed)                            -->
+  <!-- ============================================================ -->
+  <section id="experience" class="relative py-24 md:py-32 overflow-hidden bg-dark-base">
+    <!-- Background Image -->
+    <img
+      src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1600&q=80&auto=format&fit=crop"
+      alt="Dark coffee shop interior"
+      class="absolute inset-0 w-full h-full object-cover brightness-[0.25] contROAST-125"
+      loading="lazy"
+    />
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-dark-base via-dark-base/85 to-transparent"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-xl">
+        <div class="reveal">
+          <p class="section-label">The Experience</p>
+          <div class="divider-teal mb-8"></div>
+        </div>
+
+        <h2 class="reveal reveal-delay-1 font-heading text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+          MORE THAN<br />JUST COFFEE
+        </h2>
+
+        <p class="reveal reveal-delay-2 font-body text-secondary text-lg leading-relaxed mb-10">
+          Step into a space where every element has been considered — from the lighting that shifts with the hour to the soundtrack that sets the mood. ROAST is not merely a coffee bar; it is a sensory ritual.
+        </p>
+
+        <!-- Bullet List -->
+        <div class="reveal reveal-delay-3 space-y-5">
+          <div class="flex items-center">
+            <span class="exp-bullet"></span>
+            <span class="font-body text-white font-medium">Live Jazz Sessions — Every Friday & Saturday Night</span>
+          </div>
+          <div class="flex items-center">
+            <span class="exp-bullet"></span>
+            <span class="font-body text-white font-medium">Guided Tasting Sessions — Explore Flavor Profiles</span>
+          </div>
+          <div class="flex items-center">
+            <span class="exp-bullet"></span>
+            <span class="font-body text-white font-medium">Bean to Cup Workshops — Roast Your Own Blend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6. TESTIMONIALS SECTION                                        -->
+  <!-- ============================================================ -->
+  <section id="testimonials" class="py-24 md:py-32 bg-dark-base">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <div class="reveal">
+          <p class="section-label">Testimonials</p>
+          <div class="divider-teal mx-auto mb-6"></div>
+        </div>
+        <h2 class="reveal reveal-delay-1 font-heading text-4xl md:text-5xl font-bold text-white">
+          VOICES
+        </h2>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Card 1 -->
+        <div class="reveal reveal-delay-2 bg-dark-elevated border-l-4 border-teal-500 p-8">
+          <p class="font-body italic text-secondary leading-relaxed mb-6">
+            "The single origin Ethiopian pour over completely changed how I think about coffee. Every note was distinct, every sip a discovery."
+          </p>
+          <div class="flex gap-1 mb-4">
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+          </div>
+          <p class="font-heading text-white font-semibold">Aulia Rahman</p>
+          <p class="font-body text-secondary text-sm">Regular Guest</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="reveal reveal-delay-3 bg-dark-elevated border-l-4 border-teal-500 p-8">
+          <p class="font-body italic text-secondary leading-relaxed mb-6">
+            "ROAST's atmosphere is unmatched. The dark interiors, the jazz, the precision in every drink — it's my sanctuary in the city."
+          </p>
+          <div class="flex gap-1 mb-4">
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+          </div>
+          <p class="font-heading text-white font-semibold">Maya Santoso</p>
+          <p class="font-body text-secondary text-sm">Creative Director</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="reveal reveal-delay-4 bg-dark-elevated border-l-4 border-teal-500 p-8">
+          <p class="font-body italic text-secondary leading-relaxed mb-6">
+            "I attended the bean workshop and roasted my own blend. An eye opening experience. The team's knowledge is extraordinary."
+          </p>
+          <div class="flex gap-1 mb-4">
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+            <span class="star-copper text-lg">&#9733;</span>
+          </div>
+          <p class="font-heading text-white font-semibold">Dimas Prayoga</p>
+          <p class="font-body text-secondary text-sm">Coffee Enthusiast</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7. LOCATION & FOOTER                                           -->
+  <!-- ============================================================ -->
+
+  <!-- Location -->
+  <section id="visit" class="py-24 md:py-32 bg-dark-elevated">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Left: Info -->
+        <div>
+          <div class="reveal">
+            <p class="section-label">Location</p>
+            <div class="divider-teal mb-8"></div>
+          </div>
+
+          <h2 class="reveal reveal-delay-1 font-heading text-4xl md:text-5xl font-bold text-white mb-10">
+            VISIT US
+          </h2>
+
+          <div class="space-y-8">
+            <!-- Address -->
+            <div class="reveal reveal-delay-2 flex gap-4">
+              <!-- SVG Icon: Location -->
+              <svg class="w-6 h-6 text-teal-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <div>
+                <p class="font-heading text-white font-semibold">Address</p>
+                <p class="font-body text-secondary">Jl. Senopati No. 28, Kebayoran Baru<br />Jakarta Selatan 12190</p>
+              </div>
+            </div>
+
+            <!-- Hours -->
+            <div class="reveal reveal-delay-3 flex gap-4">
+              <!-- SVG Icon: Clock -->
+              <svg class="w-6 h-6 text-teal-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p class="font-heading text-white font-semibold">Hours</p>
+                <p class="font-body text-secondary">Mon s/d Fri: 07:00 s/d 22:00<br />Sat s/d Sun: 08:00 s/d 23:00</p>
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="reveal reveal-delay-4 flex gap-4">
+              <!-- SVG Icon: Phone -->
+              <svg class="w-6 h-6 text-teal-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <div>
+                <p class="font-heading text-white font-semibold">Contact</p>
+                <p class="font-body text-secondary">+62 821 3456 7890<br />hello@roast.coffee</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Map / Image -->
+        <div class="reveal reveal-delay-3">
+          <div class="border-l-4 border-teal-500 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1521903062400-b80f2cb8cb9d?w=700&q=80&auto=format&fit=crop"
+              alt="Coffee shop exterior"
+              class="w-full h-[400px] md:h-[500px] object-cover brightness-75 contROAST-125"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="reserve" class="bg-dark-base border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <div class="grid md:grid-cols-3 gap-12">
+        <!-- Brand & Social -->
+        <div>
+          <a href="#" class="font-display text-2xl font-bold tracking-wider text-white hover:text-teal-500 transition-colors duration-300">ROAST</a>
+          <p class="font-body text-secondary text-sm mt-4 leading-relaxed max-w-xs">
+            Where precision meets passion. Specialty coffee, crafted in the dark since 2024.
+          </p>
+          <div class="flex gap-4 mt-6">
+            <!-- Instagram -->
+            <a href="#" class="text-secondary hover:text-teal-500 transition-colors duration-300" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <!-- Facebook -->
+            <a href="#" class="text-secondary hover:text-teal-500 transition-colors duration-300" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#" class="text-secondary hover:text-teal-500 transition-colors duration-300" aria-label="Twitter">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-heading text-white font-semibold text-sm uppercase tracking-widest mb-6">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="#story" class="footer-link font-body text-sm">Our Story</a></li>
+            <li><a href="#menu" class="footer-link font-body text-sm">Menu</a></li>
+            <li><a href="#experience" class="footer-link font-body text-sm">Experience</a></li>
+            <li><a href="#visit" class="footer-link font-body text-sm">Location</a></li>
+            <li><a href="#" class="footer-link font-body text-sm">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Hours -->
+        <div>
+          <h4 class="font-heading text-white font-semibold text-sm uppercase tracking-widest mb-6">Hours</h4>
+          <ul class="space-y-3 font-body text-sm text-secondary">
+            <li class="flex justify-between">
+              <span>Mon s/d Friday</span>
+              <span class="text-white">07:00 s/d 22:00</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Saturday</span>
+              <span class="text-white">08:00 s/d 23:00</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Sunday</span>
+              <span class="text-white">08:00 s/d 23:00</span>
+            </li>
+            <li class="pt-3 border-t border-white/5 mt-3">
+              <span class="text-teal-500 font-medium">+62 821 3456 7890</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-white/5 py-6">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-body text-xs text-secondary/60">&copy; 2024 ROAST Specialty Coffee Bar. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="font-body text-xs text-secondary/60 hover:text-teal-500 transition-colors duration-300">Privacy</a>
+          <a href="#" class="font-body text-xs text-secondary/60 hover:text-teal-500 transition-colors duration-300">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT                                                     -->
+  <!-- ============================================================ -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ========================================
+      // 1. PARTICLES
+      // ========================================
+      const particlesCanvas = document.getElementById('particles-canvas');
+      if (particlesCanvas) {
+        const particleCount = 40;
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < particleCount; i++) {
+          const dot = document.createElement('span');
+          const size = Math.random() * 3 + 1;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const animClass = i % 3 === 0 ? 'animate-particle' :
+                            i % 3 === 1 ? 'animate-particle-slow' :
+                            'animate-particle-fast';
+          dot.className = 'absolute rounded-full bg-white/20 ' + animClass;
+          dot.style.width = size + 'px';
+          dot.style.height = size + 'px';
+          dot.style.left = x + '%';
+          dot.style.top = y + '%';
+          dot.style.animationDelay = (Math.random() * 5) + 's';
+          dot.style.animationDuration = (Math.random() * 6 + 4) + 's';
+          frag.appendChild(dot);
+        }
+        particlesCanvas.appendChild(frag);
+      }
+
+      // ========================================
+      // 2. MOBILE HAMBURGER
+      // ========================================
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', function() {
+          const isOpen = !mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden');
+          // Animate hamburger bars
+          const bars = this.querySelectorAll('span');
+          if (!isOpen) {
+            bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            bars[1].style.opacity = '0';
+            bars[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+          } else {
+            bars[0].style.transform = '';
+            bars[1].style.opacity = '';
+            bars[2].style.transform = '';
+          }
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            const bars = hamburger.querySelectorAll('span');
+            bars[0].style.transform = '';
+            bars[1].style.opacity = '';
+            bars[2].style.transform = '';
+          });
+        });
+      }
+
+      // ========================================
+      // 3. NAVBAR SCROLL EFFECT
+      // ========================================
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+        window.addEventListener('scroll', function() {
+          navbar.style.backgroundColor = window.scrollY > 50 ? 'var(--nav-bg)' : 'var(--nav-bg-solid)';
+          navbar.style.borderBottomColor = window.scrollY > 50 ? 'var(--border-medium)' : 'var(--border-subtle)';
+        });
+      }
+
+      // ========================================
+      // 4. MENU TABS
+      // ========================================
+      const tabBtns = document.querySelectorAll('[data-tab]');
+      const tabContents = {
+        coffee: document.getElementById('tab-coffee'),
+        pastry: document.getElementById('tab-pastry'),
+        signature: document.getElementById('tab-signature'),
+      };
+
+      function activateTab(tabId) {
+        // Hide all
+        Object.keys(tabContents).forEach(function(key) {
+          if (tabContents[key]) {
+            tabContents[key].classList.remove('active');
+          }
+        });
+
+        // Show selected
+        if (tabContents[tabId]) {
+          tabContents[tabId].classList.add('active');
+        }
+
+        // Update button styles
+        tabBtns.forEach(function(btn) {
+          const btnTab = btn.getAttribute('data-tab');
+          if (btnTab === tabId) {
+            btn.className = 'tab-btn px-8 py-4 text-sm font-semibold text-white bg-teal-500 text-black';
+          } else {
+            btn.className = 'tab-btn px-8 py-4 text-sm font-semibold text-secondary bg-transparent hover:border-teal-500';
+          }
+        });
+      }
+
+      tabBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          activateTab(tabId);
+        });
+      });
+
+      // ========================================
+      // 5. SCROLL REVEAL (IntersectionObserver)
+      // ========================================
+      const revealElements = document.querySelectorAll('.reveal');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px',
+        });
+
+        revealElements.forEach(function(el) {
+          observer.observe(el);
+        });
+      } else {
+        // Fallback: show all immediately
+        revealElements.forEach(function(el) {
+          el.classList.add('show');
+        });
+      }
+
+      // ========================================
+      // 6. SMOOTH SCROLL FOR ANCHOR LINKS
+      // ========================================
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            const offset = 80; // navbar height
+            const targetPos = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth',
+            });
+          }
+        });
+      });
+
+      // ========================================
+      // 7. THEME TOGGLE (Light/Dark)
+      // ========================================
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
+      const sunIconMobile = document.getElementById('sun-icon-mobile');
+      const moonIconMobile = document.getElementById('moon-icon-mobile');
+      const html = document.documentElement;
+
+      // Load saved preference
+      const savedTheme = localStorage.getItem('roast-theme');
+      if (savedTheme === 'light') {
+        html.classList.add('light-mode');
+        if (sunIcon) sunIcon.classList.add('hidden');
+        if (moonIcon) moonIcon.classList.remove('hidden');
+        if (sunIconMobile) sunIconMobile.classList.add('hidden');
+        if (moonIconMobile) moonIconMobile.classList.remove('hidden');
+      }
+
+      function toggleTheme() {
+        const isLight = html.classList.toggle('light-mode');
+        // Desktop icons
+        if (sunIcon) sunIcon.classList.toggle('hidden');
+        if (moonIcon) moonIcon.classList.toggle('hidden');
+        // Mobile icons
+        if (sunIconMobile) sunIconMobile.classList.toggle('hidden');
+        if (moonIconMobile) moonIconMobile.classList.toggle('hidden');
+        // Persist
+        localStorage.setItem('roast-theme', isLight ? 'light' : 'dark');
+        // Update navbar inline styles for scroll effect
+        const nav = document.getElementById('navbar');
+        if (nav && window.scrollY <= 50) {
+          nav.style.backgroundColor = 'var(--nav-bg-solid)';
+          nav.style.borderBottomColor = 'var(--border-subtle)';
+        }
+      }
+
+      if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+      }
+      if (themeToggleMobile) {
+        themeToggleMobile.addEventListener('click', toggleTheme);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
+
+
